@@ -38,7 +38,7 @@ wordLetters.forEach((letter) => {
   let span = document.createElement('span');
 
   if (letter === ' ') {
-    span.classList.add('space');
+    span.classList.add('space', 'chosen');
   }
   letterGuess.append(span);
 });
@@ -50,6 +50,7 @@ let theDraw = document.querySelectorAll(
 theDraw.forEach((ele) => {
   ele.style.opacity = '0';
 });
+let wrong = 0;
 document.addEventListener('click', (e) => {
   if (e.target.classList.contains('letter-box')) {
     if (e.target.classList.contains('cliked')) {
@@ -73,6 +74,7 @@ document.addEventListener('click', (e) => {
         // false letter
         for (let i = 0; i < theDraw.length; i++) {
           if (theDraw[i].style.opacity == 0) {
+            wrong++;
             theDraw[i].style.opacity = 1;
             setTimeout(() => {
               lose();
@@ -87,15 +89,34 @@ document.addEventListener('click', (e) => {
 
 function lose() {
   if (theDraw[theDraw.length - 1].style.opacity == 1) {
-    // change this 
-    alert(`GAME  OVER THE WORD IS ${theWord.toLocaleUpperCase()}`);
-    window.location.reload();
+    let popLose = document.querySelector('.pop-lose');
+    let after = document.querySelector('.after');
+    after.style.cssText = `opacity: .5;transform: scale(1)`;
+    popLose.style.cssText = `transform: translate(-50%, -50%) scale(1)`;
+    document.querySelector(
+      '.pop-lose span span'
+    ).innerText = `${theWord.toUpperCase()}`;
+    document.addEventListener('click', () => {
+      popLose.style.cssText = `transform: translate(-50%, -50%) scale(0)`;
+      after.style.cssText = `opacity: 0;transform: scale(1);`;
+      window.location.reload();
+    });
   }
 }
 function win() {
   let chosens = document.querySelectorAll('.chosen');
   if (chosens.length === theWord.length) {
-    alert('congratulations for winning'.toLocaleUpperCase());
-    window.location.reload();
+    let popWin = document.querySelector('.pop-win');
+    let after = document.querySelector('.after');
+    after.style.cssText = `opacity: .5;transform: scale(1)`;
+    popWin.style.cssText = `transform: translate(-50%, -50%) scale(1)`;
+    document.querySelector(
+      '.pop-win span span'
+    ).innerText = `${wrong}`;
+    document.addEventListener('click', () => {
+      popWin.style.cssText = `transform: translate(-50%, -50%) scale(0)`;
+      after.style.cssText = `opacity: 0;transform: scale(1);`;
+      window.location.reload();
+    });
   }
 }

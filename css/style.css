@@ -2,20 +2,43 @@
   --main-width: 4px;
   --main-color: #222;
 }
-* {
+*,
+::after,
+::before {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 body {
-  font-family: Tahoma, Arial;
+  font-family: 'Work Sans', sans-serif;
+}
+.overlay {
+  min-height: 100vh;
+  position: relative;
 }
 .container {
-  margin: 20px auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: auto;
   width: 80%;
+  position: relative;
+  overflow: hidden;
+}
+.after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  left: 0;
+  top: 0;
+  z-index: 4;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.2s;
 }
 @media (max-width: 767px) {
   .container {
     width: 95%;
-    margin: 20px auto;
   }
 }
 .row {
@@ -319,4 +342,111 @@ hr {
 }
 .letters-guess .chosen {
   color: #00a896;
+}
+.pop-win {
+  background-color: white;
+  border: 2px solid #32cd32;
+  border-radius: 10px;
+  padding: 20px;
+  width: fit-content;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+  transition: 0.3s;
+  z-index: 9;
+}
+.pop-win svg {
+  width: 100px;
+  padding: 15px;
+  height: 100px;
+  color: #32cd32;
+  border: 2px solid #32cd32;
+  border-radius: 50%;
+}
+.pop-win p {
+  font-size: 36px;
+  color: #333;
+  text-transform: capitalize;
+  letter-spacing: 1.2px;
+  font-weight: bold;
+}
+.pop-win span {
+  font-size: 30px;
+}
+.pop-win span span {
+  color: red;
+}
+@media (max-width: 767px) {
+  .pop-win svg {
+    width: 70px;
+    height: 70px;
+    padding: 10px;
+  }
+  .pop-win p {
+    font-size: 24px;
+  }
+  .pop-win span {
+    font-size: 18px;
+  }
+}
+/*lose*/
+.pop-lose {
+  background-color: white;
+  border: 2px solid red;
+  border-radius: 10px;
+  padding: 20px;
+  width: fit-content;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+  transition: 0.3s;
+  z-index: 9;
+}
+.pop-lose svg {
+  width: 100px;
+  padding: 15px;
+  height: 100px;
+  color: #f00;
+  border: 2px solid #f00;
+  border-radius: 50%;
+}
+.pop-lose p {
+  font-size: 36px;
+  color: #333;
+  text-transform: capitalize;
+  letter-spacing: 1.2px;
+  font-weight: bold;
+}
+.pop-lose span {
+  font-size: 30px;
+}
+.pop-lose span span {
+  color: #32cd32;
+}
+@media (max-width: 767px) {
+  .pop-lose svg {
+    width: 70px;
+    height: 70px;
+    padding: 10px;
+  }
+  .pop-lose p {
+    font-size: 24px;
+  }
+  .pop-lose span {
+    font-size: 18px;
+  }
 }
